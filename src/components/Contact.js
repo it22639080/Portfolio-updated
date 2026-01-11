@@ -28,7 +28,7 @@ export const Contact = () => {
     setButtonText("Sending...");
     
     // Use environment variable for API URL
-    const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+    const apiUrl = process.env.REACT_APP_API_URL || "https://portfolio-backend-b1cu.onrender.com";
     
     try {
       let response = await fetch(`${apiUrl}/contact`, {
