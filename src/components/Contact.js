@@ -28,12 +28,6 @@ export const Contact = () => {
     e.preventDefault();
     setButtonText("Sending...");
     
-<<<<<<< HEAD
-=======
-    // Use environment variable for API URL
-    const apiUrl = process.env.REACT_APP_API_URL || "https://portfolio-backend-b1cu.onrender.com";
-    
->>>>>>> 9324cc721865c635ddde464f807853f39438a9a2
     try {
       // EmailJS configuration
       const templateParams = {
