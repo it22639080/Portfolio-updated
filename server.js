@@ -4,35 +4,36 @@ const cors = require("cors");
 const nodemailer = require("nodemailer");
 require('dotenv').config();
 
-// server used to send emails
 const app = express();
-app.use(cors());
+
+// CORS configuration for production
+app.use(cors({
+  origin: process.env.CLIENT_URL || '*',
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use("/", router);
-app.listen(5000, () => console.log("Server Running on port 5000"));
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server Running on port ${PORT}`));
 
 const contactEmail = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false, // use TLS
+  service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
-  },
-  tls: {
-    rejectUnauthorized: false
   }
 });
 
-contactEmail.verify((error) => {
-  if (error) {
-    console.log("Email verification error:", error);
-  } else {
-    console.log("Ready to Send Emails");
-  }
+console.log("Email config loaded");
+
+router.get("/", (req, res) => {
+  res.json({ message: "Server is running!" });
 });
 
-router.post("/contact", (req, res) => {
+router.post("/contact", async (req, res) => {
   const name = req.body.firstName + " " + req.body.lastName;
   const email = req.body.email;
   const message = req.body.message;
@@ -49,13 +50,14 @@ router.post("/contact", (req, res) => {
            <p><strong>Message:</strong> ${message}</p>`,
   };
   
-  contactEmail.sendMail(mail, (error) => {
-    if (error) {
-      console.log("Error sending email:", error);
-      res.json({ code: 500, status: "Error sending message" });
-    } else {
-      console.log("Email sent successfully");
-      res.json({ code: 200, status: "Message Sent" });
-    }
-  });
+  try {
+    await contactEmail.sendMail(mail);
+    console.log("Email sent successfully");
+    res.json({ code: 200, status: "Message Sent" });
+  } catch (error) {
+    console.log("Error sending email:", error);
+    res.json({ code: 500, status: "Error sending message" });
+  }
 });
+
+module.exports = app;
