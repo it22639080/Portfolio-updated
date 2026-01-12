@@ -31,7 +31,7 @@ that leverage my expertise in full stack development.
                 Get In Touch
               </a>
 
-              <a href="https://mysliit-my.sharepoint.com/personal/it22639080_my_sliit_lk/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fit22639080%5Fmy%5Fsliit%5Flk%2FDocuments%2FMy%20cv%2FkavinduM%2Epdf&parent=%2Fpersonal%2Fit22639080%5Fmy%5Fsliit%5Flk%2FDocuments%2FMy%20cv&ga=1" className="outline-button">
+              <a href="https://drive.google.com/file/d/1N5o95lKrzXyVmfthW5eoEKP6cFpqt4Ma/view?usp=drive_link" className="outline-button">
                 Download CV
               </a>
             </div>
